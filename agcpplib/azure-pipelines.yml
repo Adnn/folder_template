@@ -1,0 +1,21 @@
+# https://aka.ms/yaml
+
+trigger:
+- master
+- develop
+
+pr: none
+
+resources:
+  repositories:
+  - repository: templates
+    type: bitbucket
+    name: agdevs/azurepipelines-templates
+    endpoint: "Bitbucket - agjenkinsci"
+
+stages:
+- stage: "Validation"
+  jobs:
+  - template: pipeline-agrepository.yml
+    parameters:
+      projectName: {{project}}
