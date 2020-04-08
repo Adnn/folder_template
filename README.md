@@ -3,6 +3,10 @@
 Python script to deploy and configure a folder to a target prefix, following a template.
 The template specifies the file and folders structures, as well as basic substitutions.
 
+## Usage
+
+See `./setup-folder.py -h` for usage.
+
 ## Substitution
 
 The substitution syntax is `{{identifier}}`,
