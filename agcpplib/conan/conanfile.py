@@ -11,27 +11,16 @@ class {{Project}}Conan(ConanFile):
     url = "https://bitbucket.org/agdevs/{{project}}"
     description = "{{Project_description}}"
     #topics = ("", "", ...)
-    settings = (
-        "os", # Naturally forwarded for native compilation
-        "compiler", # Build-helper sets -> CONAN_COMPILER
-                    # Need to check it manually in CMake scripts (check_compiler_version)
-                    # * compiler.cppstd -> CONAN_CMAKE_CXX_STANDARD & CONAN_CMAKE_CXX_EXTENSIONS (standard with "gnu" prefix, e.g. "gnu14")
-                    #   Need to map it manually to CMAKE_CXX_STANDARD && CMAKE_CXX_EXTENSIONS (conan_set_std)
-                    # * compiler.libcxx -> CONAN_LIBCXX
-                    #   Need to map it manually to compiler dependent flags (conan_set_libcxx)
-                    # * compiler.runtime -> CONAN_LINK_RUNTIME
-                    #   Need to manually alter the compilation flags (conan_set_vs_runtime)
-        "build_type", # Buildhelper auto sets CMake var CMAKE_BUILD_TYPE
-                      # All that is needed
-        "arch") # Naturally forwarded for native compilation
+    settings = ("os", "compiler", "build_type", "arch")
     options = {
-        "shared": [True, False], # Buildhelper auto sets CMake var BUILD_SHARED_LIBS
-                                 # All that is needed
-        "build_tests": [True, False], # Need to manually map to CMake var BUILD_tests
+        "shared": [True, False],
+        "build_tests": [True, False],
+        "visibility": ["default", "hidden"],
     }
     default_options = {
         "shared": False,
         "build_tests": False,
+        "visibility": "default"
     }
 
     #requires = ()
@@ -53,6 +42,7 @@ class {{Project}}Conan(ConanFile):
 
     def _configure_cmake(self):
         cmake = CMake(self)
+        cmake.definitions["CMAKE_CXX_VISIBILITY_PRESET"] = self.options.visibility
         cmake.definitions["CMAKE_PROJECT_{{Project}}_INCLUDE"] = \
             path.join(self.source_folder, "cmake", "conan", "customconan.cmake")
         cmake.definitions["BUILD_tests"] = self.options.build_tests
