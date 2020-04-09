@@ -32,7 +32,6 @@ class {{Project}}Conan(ConanFile):
 
     scm = {
         "type": "git",
-        "subfolder": "cloned_repo",
         # Not using auto forurl: Azure CI clones via https, so auto exported recipe would use https
         "url": "git@bitbucket.org:agdevs/{{project}}.git",
         "revision": "auto",
