@@ -3,7 +3,7 @@ import os
 from conans import ConanFile, CMake, tools
 
 
-class Cerberica2TestConan(ConanFile):
+class {{Project}}TestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake_paths", "cmake"
 

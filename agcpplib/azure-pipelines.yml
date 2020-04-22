@@ -14,8 +14,6 @@ resources:
     endpoint: "Bitbucket - agjenkinsci"
 
 stages:
-- stage: "Validation"
-  jobs:
-  - template: pipeline-agrepository.yml
-    parameters:
-      projectName: {{project}}
+- template: pipeline-agrepository.yml@templates
+  parameters:
+    projectName: {{project}}
