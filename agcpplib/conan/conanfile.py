@@ -13,14 +13,14 @@ class {{Project}}Conan(ConanFile):
     #topics = ("", "", ...)
     settings = ("os", "compiler", "build_type", "arch")
     options = {
-        "shared": [True, False],
         "build_tests": [True, False],
+        "shared": [True, False],
         "visibility": ["default", "hidden"],
     }
     default_options = {
-        "shared": False,
         "build_tests": False,
-        "visibility": "default"
+        "shared": False,
+        "visibility": "hidden"
     }
 
     #requires = ()
@@ -29,10 +29,11 @@ class {{Project}}Conan(ConanFile):
 
     build_policy = "missing"
     generators = "cmake_paths", "cmake"
+    revision_mode = "scm"
 
     scm = {
         "type": "git",
-        # Not using auto forurl: Azure CI clones via https, so auto exported recipe would use https
+        # Not using auto url: Azure CI clones via https, so auto exported recipe would use https
         "url": "git@bitbucket.org:agdevs/{{project}}.git",
         "revision": "auto",
         "submodule": "recursive",
@@ -41,10 +42,10 @@ class {{Project}}Conan(ConanFile):
 
     def _configure_cmake(self):
         cmake = CMake(self)
+        cmake.definitions["BUILD_tests"] = self.options.build_tests
         cmake.definitions["CMAKE_CXX_VISIBILITY_PRESET"] = self.options.visibility
         cmake.definitions["CMAKE_PROJECT_{{Project}}_INCLUDE"] = \
             path.join(self.source_folder, "cmake", "conan", "customconan.cmake")
-        cmake.definitions["BUILD_tests"] = self.options.build_tests
         cmake.configure()
         return cmake
 
