@@ -25,7 +25,7 @@ class {{Project}}Conan(ConanFile):
 
     #requires = ()
 
-    build_requires = ("cmake_installer/[>=3.16]@conan/stable",)
+    build_requires = ("cmake/3.17.3@ag/stable",)
 
     build_policy = "missing"
     generators = "cmake_paths", "cmake"
