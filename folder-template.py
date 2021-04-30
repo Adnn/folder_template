@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse
+import argparse, datetime
 from os import mkdir, path, walk
 from pathlib import Path
 
@@ -7,7 +7,7 @@ from pathlib import Path
 def substitute(template, context):
     """ Short and pessimised, as Guido intended """
     for key, value in context.items():
-        template = template.replace("{{"+key+"}}", value)
+        template = template.replace("{{"+key+"}}", str(value))
     return template
 
 
@@ -39,6 +39,7 @@ def main():
     parser.add_argument("project", help="Name of the project")
     parser.add_argument("description", help="One sentence description of the project")
     parser.add_argument("--cmake_namespace", default="ad", help="CMake namespace assigned to project's targets.")
+    parser.add_argument("--person", default="Adnn", help="A name to associate with the project.")
     parser.add_argument("--template", default="cpprepo", help="The folder template to deploy."
                                                               " Can be absolute or relative to this script folder.")
     args = parser.parse_args()
@@ -48,10 +49,12 @@ def main():
     repopath = path.join(args.deploy_prefix, project)
 
     ctx = {
+        "cmake_namespace": args.cmake_namespace,
+        "person": args.person,
         "project": project,
         "Project": project.capitalize(),
         "Project_description": args.description,
-        "cmake_namespace": args.cmake_namespace,
+        "year": datetime.datetime.now().year,
     }
     deploy(args.template, repopath, ctx)
 

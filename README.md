@@ -31,3 +31,5 @@ Identifiers:
 * `Project`: capitalized project name.
 * `Project_description`
 * `cmake_namespace`: the CMake namespace that will be assigned to created targets.
+* `person`: a name to associate with the project.
+* `year`: current year.
