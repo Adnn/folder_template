@@ -38,7 +38,6 @@ cmc_install_with_folders(FILES ${${PROJECT_NAME}_HEADERS}
                          DESTINATION include/${PROJECT_NAME}/${PROJECT_NAME}
 )
 cmc_install_packageconfig(${PROJECT_NAME} ${PROJECT_NAME}Targets
-                          #DEPENDS_COMPONENTS ${_internal_dependencies_public}
                           FIND_FILE "CMakeFinds.cmake.in"
-                          NAMESPACE ad::
+                          NAMESPACE {{cmake_namespace}}::
 )

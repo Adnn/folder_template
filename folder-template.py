@@ -16,8 +16,10 @@ def get_destination(template_dir, template_root, destination_root):
     return str(Path(destination_root, *Path(template_dir).parts[len(Path(template_root).parts):]))
 
 
-def deploy(template_root, destination_root, context):
+def deploy(template_path, destination_root, context):
     """ Recursively create file and folders while calling substitute on names and content """
+    # Assume template path is relative to this script
+    template_root = Path(Path(__file__).parent, template_path)
     for current, _, filenames in walk(template_root):
         destination_dir = substitute(get_destination(current, template_root, destination_root),
                                      context)
@@ -36,7 +38,9 @@ def main():
                         help="Folder where the repository folder will be created")
     parser.add_argument("project", help="Name of the project")
     parser.add_argument("description", help="One sentence description of the project")
-    parser.add_argument("--template", default="agcpplib", help="The folder template to deploy")
+    parser.add_argument("--cmake_namespace", default="ad", help="CMake namespace assigned to project's targets.")
+    parser.add_argument("--template", default="cpprepo", help="The folder template to deploy."
+                                                              " Can be absolute or relative to this script folder.")
     args = parser.parse_args()
 
     # Good: raises exception if folder already exists
@@ -47,6 +51,7 @@ def main():
         "project": project,
         "Project": project.capitalize(),
         "Project_description": args.description,
+        "cmake_namespace": args.cmake_namespace,
     }
     deploy(args.template, repopath, ctx)
 

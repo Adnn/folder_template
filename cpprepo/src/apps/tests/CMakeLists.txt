@@ -13,9 +13,10 @@ add_executable(${PROJECT_NAME}
                ${${PROJECT_NAME}_SOURCES}
 )
 
-#target_link_libraries(${PROJECT_NAME}
-#    PRIVATE
-#        ad::)
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+        {{cmake_namespace}}::{{project}}
+)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
                       VERSION "${${PROJECT_NAME}_VERSION}"
