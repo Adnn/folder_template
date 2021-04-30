@@ -7,7 +7,7 @@ class {{Project}}TestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake_paths", "cmake"
 
-    build_requires = "cmake/[>=3.16]"
+    build_requires = ("cmake/3.16.9",)
 
     def build(self):
         cmake = CMake(self)

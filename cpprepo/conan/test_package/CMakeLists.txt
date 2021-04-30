@@ -6,4 +6,4 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_CURRENT_BINARY_DIR}>)
 find_package({{Project}} CONFIG REQUIRED COMPONENTS {{project}})
 
 add_executable(example example.cpp)
-target_link_libraries(example PRIVATE ad::{{project}})
+target_link_libraries(example PRIVATE {{cmake_namespace}}::{{project}})

@@ -8,7 +8,7 @@ class {{Project}}Conan(ConanFile):
 
     name = "{{project}}"
     license = "MIT License"
-    url = "https://github.com/Adnn/{{project}}"
+    url = "https://github.com/{{person}}/{{project}}"
     description = "{{Project_description}}"
     #topics = ("", "", ...)
     settings = ("os", "compiler", "build_type", "arch")
@@ -25,7 +25,7 @@ class {{Project}}Conan(ConanFile):
 
     #requires = ()
 
-    build_requires = ("cmake/[>=3.16]",)
+    build_requires = ("cmake/3.16.9",)
 
     build_policy = "missing"
     generators = "cmake_paths", "cmake"
@@ -33,8 +33,7 @@ class {{Project}}Conan(ConanFile):
 
     scm = {
         "type": "git",
-        # Not using auto url: Azure CI clones via https, so auto exported recipe would use https
-        "url": "git@github.com:Adnn/{{project}}.git",
+        "url": "auto",
         "revision": "auto",
         "submodule": "recursive",
     }
