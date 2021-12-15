@@ -7,28 +7,14 @@ project({{Project}} VERSION "${BUILD_VERSION}")
 # Setup cmake helpers in 'cmake' submodule
 include ("cmake/include.cmake")
 
+cmc_include_conan_configuration()
 
-##
-## Build options
-##
+# Enable the grouping target in folders, when available in IDE.
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-# Common build settings
-if(NOT CMAKE_CXX_STANDARD)
-    set(CMAKE_CXX_STANDARD 17)
-endif()
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-if(NOT CMAKE_CXX_EXTENSIONS)
-    set(CMAKE_CXX_EXTENSIONS OFF)
-endif()
-
-##
-## Include components
-##
+# Install the top-level package config, allowing to find all sub-components
+include(cmc-install)
+cmc_install_root_component_config(${PROJECT_NAME})
+cmc_register_source_package(${PROJECT_NAME})
 
 add_subdirectory(src)
-
-include(cmc-install)
-# Generates and install the top level XxxConfig.cmake file
-# with the logic to find sub-components
-cmc_install_root_component_config()
