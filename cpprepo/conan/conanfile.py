@@ -1,4 +1,5 @@
-from conans import ConanFile, CMake, tools
+from conans import ConanFile, tools
+from conan.tools.cmake import CMake
 
 from os import path
 
@@ -56,7 +57,7 @@ class {{Project}}Conan(ConanFile):
 
 
     def configure(self):
-        tools.check_min_cppstd(self, "17")
+        tools.check_min_cppstd(self, "20")
 
 
     def generate(self):
