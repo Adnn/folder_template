@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import argparse, datetime
 from os import mkdir, path, walk
 from pathlib import Path
