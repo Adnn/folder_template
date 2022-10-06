@@ -18,7 +18,7 @@ class {{Project}}Conan(ConanFile):
     default_options = {
         "build_tests": False,
         "shared": False,
-        "visibility": "hidden"
+        "visibility": "hidden",
     }
 
     #requires = ()
@@ -31,5 +31,5 @@ class {{Project}}Conan(ConanFile):
     generators = "CMakeDeps", "CMakeToolchain"
 
 
-    python_requires="shred_conan_base/0.0.3@adnn/stable"
+    python_requires="shred_conan_base/0.0.4@adnn/stable"
     python_requires_extend="shred_conan_base.ShredBaseConanFile"
